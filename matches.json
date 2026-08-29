@@ -13,5 +13,10 @@
     "match": "vs Pyramids",
     "score": "0-3",
     "result": "Lose"
+  },
+  {
+    "match": "vs Ismaily",
+    "score": "4-2",
+    "result": "Win"
   }
 ]
