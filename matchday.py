@@ -1,11 +1,12 @@
 import sys
+import json
 
 
-Match = sys.argv[2]
+match = sys.argv[2]
 score = sys.argv[3]
 goals=score.split("-")
 goals_for = int(goals[0])
-goals_against = int(goals[1])
+goals_against = int(goals[1])   
 if goals_for > goals_against:
     result = "Win"
 elif goals_for == goals_against:
@@ -13,4 +14,21 @@ elif goals_for == goals_against:
 else:
     result = "Lose"
     
-print(f"Match : {Match} |  Score : {score} | Result : {result}")
+print(f"match : {match} |  score : {score} | result : {result}")
+
+try:
+    with open("matches.json", "r") as f:
+        matches = json.load(f)
+except FileNotFoundError:
+    matches = []
+
+
+
+new_match = {"match" : match, "score" : score, "result" : result}
+matches.append(new_match)
+
+
+with open("matches.json","w") as f:
+    json.dump(matches, f, indent=2)
+
+print(matches)

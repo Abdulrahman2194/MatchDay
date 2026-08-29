@@ -1,0 +1,17 @@
+[
+  {
+    "match": "vs Zamalek",
+    "score": "2-1",
+    "result": "Win"
+  },
+  {
+    "match": "vs Ahly",
+    "score": "1-1",
+    "result": "Draw"
+  },
+  {
+    "match": "vs Pyramids",
+    "score": "0-3",
+    "result": "Lose"
+  }
+]
