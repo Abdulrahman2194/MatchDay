@@ -20,7 +20,7 @@ if command == "add":
     print(f"match : {match} |  score : {score} | result : {result}")
 
     try:
-        with open("matches_backup.json", "r") as f:
+        with open("matches.json", "r") as f:
             matches = json.load(f)
     except FileNotFoundError:
         matches = []
@@ -28,14 +28,14 @@ if command == "add":
     new_match = {"match": match, "score": score, "result": result}
     matches.append(new_match)
 
-    with open("matches_backup.json", "w") as f:
+    with open("matches.json", "w") as f:
         json.dump(matches, f, indent=2)
 
     print(matches)
 
 elif command == "season":
     try:
-        with open("matches_backup.json", "r") as f:
+        with open("matches.json", "r") as f:
             matches = json.load(f)
     except FileNotFoundError:
         matches = []
