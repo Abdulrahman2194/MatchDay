@@ -1,14 +1,32 @@
 import json
 import sys
 
+
+if len(sys.argv) < 2:
+    print("Should be python matchday.py [add|season] ")
+    sys.exit(1)
+
 command = sys.argv[1]
 
 if command == "add":
+    
+    if len(sys.argv) < 4:
+        print("input should be like this : python matchday.py add match score")
+        sys.exit(1)
+
     match = sys.argv[2]
     score = sys.argv[3]
-    goals = score.split("-")
-    goals_for = int(goals[0])
-    goals_against = int(goals[1])
+    try:
+        goals = score.split("-")
+        if len(goals) == 2:
+            goals_for = int(goals[0])
+            goals_against = int(goals[1])
+        else:
+            raise ValueError
+    except (ValueError, IndexError):
+        print("Score should be in the format 'X-Y' where X and Y are integers.")
+        sys.exit(1)
+    
 
     if goals_for > goals_against:
         result = "Win"
@@ -39,14 +57,13 @@ elif command == "season":
             matches = json.load(f)
     except FileNotFoundError:
         matches = []
-        
-        
 
     wins = 0
     draws = 0
     losses = 0
     goals_for = 0
     goals_against = 0
+
     for match in matches:
         if match["result"] == "Win":
             wins += 1
@@ -54,15 +71,18 @@ elif command == "season":
             draws += 1
         else:
             losses += 1
+
         score = match["score"]
         goals = score.split("-")
         goals_for += int(goals[0])
         goals_against += int(goals[1])
 
-    
-            
-    
-    played=len(matches)
-    print(f"Played: {played} | W: {wins} D: {draws} L: {losses} | Goals For: {goals_for} Goals Against: {goals_against}")
-    
-            
+    played = len(matches)
+    print(
+        f"Played: {played} | W: {wins} D: {draws} L: {losses} | Goals For:"
+        f" {goals_for} Goals Against: {goals_against}"
+    )
+
+else:
+    print("Unknown command. Use 'add' or 'season'.")
+    sys.exit(1)
