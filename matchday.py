@@ -8,6 +8,14 @@ if len(sys.argv) < 2:
 
 command = sys.argv[1]
 
+def load_matches():
+    try:
+        with open("matches.json", "r") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return []
+    
+
 if command == "add":
     
     if len(sys.argv) < 4:
@@ -37,11 +45,8 @@ if command == "add":
 
     print(f"match : {match} |  score : {score} | result : {result}")
 
-    try:
-        with open("matches.json", "r") as f:
-            matches = json.load(f)
-    except FileNotFoundError:
-        matches = []
+    matches=load_matches()
+    
 
     new_match = {"match": match, "score": score, "result": result}
     matches.append(new_match)
@@ -52,11 +57,8 @@ if command == "add":
   
 
 elif command == "season":
-    try:
-        with open("matches.json", "r") as f:
-            matches = json.load(f)
-    except FileNotFoundError:
-        matches = []
+    matches=load_matches()
+   
 
     wins = 0
     draws = 0
@@ -84,11 +86,7 @@ elif command == "season":
     )
 
 elif command == "form":
-    try:
-        with open("matches.json","r") as f:
-            matches=json.load(f)
-    except FileNotFoundError:
-        matches = []
+    matches=load_matches()
 
     
     form = matches[-5:]
