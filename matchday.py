@@ -3,7 +3,7 @@ import sys
 
 
 if len(sys.argv) < 2:
-    print("Should be python matchday.py [add|season] ")
+    print("Should be python matchday.py [add|season|form] ")
     sys.exit(1)
 
 command = sys.argv[1]
@@ -49,7 +49,7 @@ if command == "add":
     with open("matches.json", "w") as f:
         json.dump(matches, f, indent=2)
 
-    print(matches)
+  
 
 elif command == "season":
     try:
@@ -83,6 +83,25 @@ elif command == "season":
         f" {goals_for} Goals Against: {goals_against}"
     )
 
+elif command == "form":
+    try:
+        with open("matches.json","r") as f:
+            matches=json.load(f)
+    except FileNotFoundError:
+        matches = []
+
+    
+    form = matches[-5:]
+    form_list = []
+    for match in form:
+        if match["result"] == "Win":
+            form_list.append("W")
+        elif match["result"] == "Draw":
+            form_list.append("D")
+        elif match["result"] == "Lose":
+            form_list.append("L")
+    print(" ".join(form_list))
 else:
-    print("Unknown command. Use 'add' or 'season'.")
+    print("Unknown command. Use 'add', 'season', or 'form'.")
     sys.exit(1)
+
